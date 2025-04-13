@@ -5,8 +5,22 @@ import {
   DEAL_PRODUCTS,
   LATEST_BLOG_QUERY,
   PRODUCT_BY_SLUG_QUERY,
+  SEARCH_PRODUCTS_QUERY
 } from "./query";
 
+
+const searchProducts = async (searchTerm: string) => {
+  try {
+    const { data } = await sanityFetch({
+      query: SEARCH_PRODUCTS_QUERY,
+      params: { searchTerm: `${searchTerm}*` }
+    });
+    return data || [];
+  } catch (error) {
+    console.error("Error searching products:", error);
+    return [];
+  }
+};
 const getCategories = async (quantity?: number) => {
   try {
     const query = quantity
@@ -93,4 +107,5 @@ export {
   getDealProducts,
   getProductBySlug,
   getBrand,
+  searchProducts
 };

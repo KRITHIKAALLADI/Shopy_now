@@ -11,6 +11,17 @@ const LATEST_BLOG_QUERY = defineQuery(
     }`
 );
 
+ const SEARCH_PRODUCTS_QUERY = defineQuery(
+  `*[_type == "product" && (name match $searchTerm || description match $searchTerm)] {
+    _id,
+    name,
+    description,
+    price,
+    images,
+    slug,
+    "categories": categories[]->title
+  }`
+);
 const DEAL_PRODUCTS = defineQuery(
   `*[_type == 'product' && status == 'hot'] | order(name asc){
     ...,"categories": categories[]->title
@@ -30,4 +41,5 @@ export {
   DEAL_PRODUCTS,
   PRODUCT_BY_SLUG_QUERY,
   BRAND_QUERY,
+  SEARCH_PRODUCTS_QUERY,
 };
