@@ -13,10 +13,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 
+// Define a more specific type for Command component props
+interface CommandProps extends React.ComponentPropsWithoutRef<typeof CommandPrimitive> {
+  className?: string;
+}
+
 function Command({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive>) {
+}: CommandProps) {
   return (
     <CommandPrimitive
       data-slot="command"
@@ -29,15 +34,19 @@ function Command({
   )
 }
 
+// Fix the CommandDialog props type
+interface CommandDialogProps extends React.ComponentPropsWithRef<typeof Dialog> {
+  title?: string;
+  description?: string;
+  children?: React.ReactNode;
+}
+
 function CommandDialog({
   title = "Command Palette",
   description = "Search for a command to run...",
   children,
   ...props
-}: React.ComponentProps<typeof Dialog> & {
-  title?: string
-  description?: string
-}) {
+}: CommandDialogProps) {
   return (
     <Dialog {...props}>
       <DialogHeader className="sr-only">
@@ -45,7 +54,7 @@ function CommandDialog({
         <DialogDescription>{description}</DialogDescription>
       </DialogHeader>
       <DialogContent className="overflow-hidden p-0">
-        <Command className="[&_[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+        <Command className="[&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-input-wrapper]]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
           {children}
         </Command>
       </DialogContent>
@@ -53,10 +62,15 @@ function CommandDialog({
   )
 }
 
+// Fix the CommandInput props type
+interface CommandInputProps extends React.ComponentPropsWithRef<typeof CommandPrimitive.Input> {
+  className?: string;
+}
+
 function CommandInput({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Input>) {
+}: CommandInputProps) {
   return (
     <div
       data-slot="command-input-wrapper"
@@ -75,10 +89,15 @@ function CommandInput({
   )
 }
 
+// Fix remaining component types
+interface CommandListProps extends React.ComponentPropsWithRef<typeof CommandPrimitive.List> {
+  className?: string;
+}
+
 function CommandList({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.List>) {
+}: CommandListProps) {
   return (
     <CommandPrimitive.List
       data-slot="command-list"
@@ -93,7 +112,7 @@ function CommandList({
 
 function CommandEmpty({
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Empty>) {
+}: React.ComponentPropsWithRef<typeof CommandPrimitive.Empty>) {
   return (
     <CommandPrimitive.Empty
       data-slot="command-empty"
@@ -103,10 +122,14 @@ function CommandEmpty({
   )
 }
 
+interface CommandGroupProps extends React.ComponentPropsWithRef<typeof CommandPrimitive.Group> {
+  className?: string;
+}
+
 function CommandGroup({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Group>) {
+}: CommandGroupProps) {
   return (
     <CommandPrimitive.Group
       data-slot="command-group"
@@ -119,10 +142,14 @@ function CommandGroup({
   )
 }
 
+interface CommandSeparatorProps extends React.ComponentPropsWithRef<typeof CommandPrimitive.Separator> {
+  className?: string;
+}
+
 function CommandSeparator({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Separator>) {
+}: CommandSeparatorProps) {
   return (
     <CommandPrimitive.Separator
       data-slot="command-separator"
@@ -132,10 +159,14 @@ function CommandSeparator({
   )
 }
 
+interface CommandItemProps extends React.ComponentPropsWithRef<typeof CommandPrimitive.Item> {
+  className?: string;
+}
+
 function CommandItem({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Item>) {
+}: CommandItemProps) {
   return (
     <CommandPrimitive.Item
       data-slot="command-item"
@@ -148,10 +179,14 @@ function CommandItem({
   )
 }
 
+interface CommandShortcutProps extends React.HTMLAttributes<HTMLSpanElement> {
+  className?: string;
+}
+
 function CommandShortcut({
   className,
   ...props
-}: React.ComponentProps<"span">) {
+}: CommandShortcutProps) {
   return (
     <span
       data-slot="command-shortcut"

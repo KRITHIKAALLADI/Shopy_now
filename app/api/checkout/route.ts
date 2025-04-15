@@ -2,13 +2,20 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-03-31.basil", // Use the latest API version
+  apiVersion: "2025-03-31.basil",
 });
+
+// Define a type for the items
+interface CheckoutItem {
+  name: string;
+  price: number;
+  quantity: number;
+}
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { items } = body;
+    const { items }: { items: CheckoutItem[] } = body;
 
     if (!items || items.length === 0) {
       return NextResponse.json(
@@ -19,13 +26,13 @@ export async function POST(req: Request) {
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
-      line_items: items.map((item: any) => ({
+      line_items: items.map((item) => ({
         price_data: {
           currency: "usd",
           product_data: {
             name: item.name,
           },
-          unit_amount: Math.round(item.price * 100), // Convert to cents
+          unit_amount: Math.round(item.price * 100),
         },
         quantity: item.quantity,
       })),
