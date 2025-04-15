@@ -14,13 +14,10 @@ import {
 } from "@/components/ui/dialog"
 
 // Define a more specific type for Command component props
-//interface CommandProps extends React.ComponentPropsWithoutRef<typeof CommandPrimitive> {
-  //className?: string;
-
-  type CommandProps = React.ComponentPropsWithRef<typeof CommandPrimitive> & {
-    className?: string;
+interface CommandProps extends React.ComponentPropsWithoutRef<typeof CommandPrimitive> {
+  className?: string;
   }
-//}
+
 
 function Command({
   className,
