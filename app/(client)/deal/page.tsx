@@ -14,7 +14,7 @@ const DealPage = async () => {
         </Title>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5">
           {products?.map((product) => (
-            // @ts-expect-error Product type from Sanity might not match ProductCard props exactly
+          // @ts-expect-error - Products type from Sanity might be undefined
             <ProductCard key={product?._id} product={product} />
           ))}
         </div>
